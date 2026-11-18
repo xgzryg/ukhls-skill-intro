@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f6f0">
-  <meta name="description" content="ukhls-skill 入门指南。从字段核对和清洗，到抽样与纵向分析、科研图表和可复现交付。">
-  <title>ukhls-skill · UKHLS 研究入门</title>
+  <meta name="description" content="ukhls-skill 的 UKHLS 论文实作指南。从文献查新、辅助选题和项目搭建，到清洗、统计、出图、手稿和投稿准备。">
+  <title>ukhls-skill · UKHLS 论文实作指南</title>
   <style>
     :root{color-scheme:light;--paper:#f7f6f0;--ink:#152e28;--muted:#52645c;--line:#d7dfd3;--green:#285e4a;--light:#e8efe5;--white:#fff;--warm:#a0b971;--mono:"IBM Plex Mono",Consolas,monospace;--sans:Inter,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65}a{color:inherit}button{font:inherit}img{max-width:100%}p,h1,h2,h3{margin:0}p{color:var(--muted)}code,pre,.wordmark,.chart-axis,.chart-values{font-family:var(--mono)}code{overflow-wrap:anywhere}a:focus-visible,button:focus-visible{outline:3px solid #ab7338;outline-offset:4px}.wrap{width:min(1120px,calc(100% - 64px));margin-inline:auto}.skip{position:absolute;top:-5rem;left:1rem;z-index:2;padding:.6rem 1rem;background:var(--white)}.skip:focus{top:1rem}
@@ -20,6 +20,15 @@
     @media(max-width:670px){.wrap{width:calc(100% - 32px)}.nav{min-height:62px}.nav-links{gap:12px}.nav-links a{font-size:.79rem}.nav-links a:first-child{display:none}.hero{grid-template-columns:1fr;padding:41px 0 33px;gap:27px}.hero h1 span{margin-top:14px}.figure{padding:17px}.section.section{padding:33px 0}.features,.start-grid{grid-template-columns:1fr;gap:12px}.feature{padding:17px}.feature .glyph{margin-bottom:10px}.compliance{padding:18px}.prompt-body{min-height:0}.forest{grid-template-columns:4em minmax(0,1fr) 8em}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
     .prompt-example h3,.print-web{display:none}
+    .features .feature:last-child{background:#fcfdf9}.features .feature:nth-child(3n){background:#eef3e9}
+    .auto-route{margin-top:15px;padding:13px 17px;border-left:3px solid var(--green);background:#eef3e9;font-size:.92rem}
+    .project-stages{list-style:none;margin:0 0 22px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+    .project-stages li{padding:8px 11px;background:#fcfdf9;border:1px solid var(--line);border-radius:7px;font-size:.85rem}
+    .project-stages code{font-size:.92em;color:var(--green)}
+    .case{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px 22px}.case h3{font-size:1.06rem;margin-bottom:12px}
+    .case-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.case-flow strong,.outcomes strong{display:block;margin-bottom:4px}.case-flow p,.outcomes p{font-size:.88rem}
+    .outcomes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.outcomes article{border-top:2px solid #b2c9b0;padding-top:9px}
+    @media(max-width:670px){.project-stages{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.case-flow,.outcomes{grid-template-columns:1fr;gap:12px}.case{padding:17px}}
     @page{size:A4;margin:15mm 14mm 17mm}
     @media print{
       *{-webkit-print-color-adjust:exact;print-color-adjust:exact}html{font-size:11pt}body{background:#fff;line-height:1.55}.wrap{width:100%;margin:0}
@@ -29,7 +38,9 @@
       .figure{box-shadow:none;border-radius:3mm;padding:4mm}.figure-head{padding-bottom:3mm}.figure-head strong{font-size:10pt}.figure-head span{font-size:8pt}.forest{grid-template-columns:3.2em minmax(0,1fr) 10em;gap:0 1.4mm;font-size:8pt;margin:3mm 0 1mm}.chart-track{height:8mm}.chart-track span{top:3.7mm}.chart-track i{top:2.8mm}.chart-values{font-size:7.2pt}.chart-axis{font-size:7.6pt}.chart-header{white-space:nowrap}.chart-header,.figure figcaption{font-size:8pt}.figure figcaption{margin-top:2.5mm;padding-top:2.5mm}
       section.section{padding:7mm 0;break-inside:avoid}.section h2{font-size:18pt;line-height:1.25;margin-bottom:3mm}.section-lead{margin-bottom:4mm;font-size:10.5pt}.features{grid-template-columns:repeat(3,minmax(0,1fr));gap:3mm}.feature{padding:4mm;border-radius:2.5mm}.feature .glyph{display:none}.feature h3,.step h3{font-size:10.5pt;margin-bottom:1.2mm}.feature p,.step p{font-size:9.5pt}
       .start-grid{grid-template-columns:minmax(0,1fr);gap:3mm}.steps{display:grid;gap:2.5mm;grid-template-columns:repeat(3,minmax(0,1fr));margin:0}.step{grid-template-columns:6mm 1fr;gap:1.2mm;margin:0}.step:before{width:5.3mm;height:5.3mm;font-size:8pt}.terminal{border-radius:2.5mm}.terminal h3{font-size:10pt;padding:2.5mm 3mm}.commands{padding:3mm;grid-template-columns:1.25fr .75fr;gap:3mm}.commands strong{font-size:8.5pt}.commands pre{font-size:8pt;padding:2mm}.terminal p{font-size:8.5pt;padding:0 3mm 2.5mm}
-      #example{break-before:page;border-top:0;padding-top:2mm}.prompt{background:none;border:0;border-radius:0}.prompt-body{min-height:0;padding:0;display:grid;gap:3mm}.prompt-example,.prompt-example[hidden]{display:block!important;border:1px solid var(--line);border-radius:2.5mm;padding:3.5mm 4mm;background:#f8faf5}.prompt-example h3{display:block;font-size:11pt;margin-bottom:1mm;color:var(--green)}.prompt pre{font-size:10pt;line-height:1.6}
+      #start,#example{break-before:page;border-top:0;padding-top:2mm}.auto-route{padding:3mm;margin-top:3mm;font-size:9pt}.project-stages{grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5mm;margin-bottom:3mm}.project-stages li{padding:1.4mm 2mm;font-size:8.5pt}
+      .case{padding:3mm 4mm;border-radius:2.5mm}.case h3{font-size:10.5pt;margin-bottom:2mm}.case-flow,.outcomes{grid-template-columns:repeat(3,minmax(0,1fr));gap:3mm}.case-flow p,.outcomes p{font-size:8.7pt}.case-flow strong,.outcomes strong{font-size:9.3pt}.outcomes article{padding-top:1.5mm}
+      .prompt{background:none;border:0;border-radius:0}.prompt-body{min-height:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2mm}.prompt-example,.prompt-example[hidden]{display:block!important;border:1px solid var(--line);border-radius:2.5mm;padding:2.5mm 3mm;background:#f8faf5}.prompt-example h3{display:block;font-size:10pt;margin-bottom:1mm;color:var(--green)}.prompt pre{font-size:9pt;line-height:1.5}
       .compliance{padding:4mm 5mm;border-radius:2.5mm}.compliance li{font-size:10pt;padding:.8mm 0}.compliance ol{margin-bottom:3mm}.source-links{gap:1mm 3mm}.source-links a{font-size:8.8pt}.print-web{display:block;font-size:9pt;margin-top:3mm}
     }
   </style>
@@ -46,8 +57,8 @@
     <div class="hero">
       <div>
         <div class="hero-context">Understanding Society · UK Household Longitudinal Study</div>
-        <h1>ukhls-skill<span>从字段清洗到科研图表</span></h1>
-        <p>面向 UKHLS 研究的分析技能。核对字段与编码，整理跨波次分析表，拟合与研究方案相符的模型，并输出可追溯的统计结果和图表。</p>
+        <h1>ukhls-skill<span>从研究问题到投稿稿件</span></h1>
+        <p>面向 UKHLS 研究者的论文工作工具。从查新和选题开始，搭建课题目录，核对字段并整理分析表，完成建模、出图、论文写作与投稿准备。已有课题可以从当前阶段接续。</p>
         <div class="hero-actions"><a class="button" href="#start">从零开始 <span aria-hidden="true">↓</span></a><a class="text-link" href="#example">查看任务示例 <span aria-hidden="true">↗</span></a><a class="text-link" href="ukhls-skill-guide.pdf" download>下载 PDF <span aria-hidden="true">↓</span></a></div>
       </div>
       <figure class="figure" aria-labelledby="figure-title">
@@ -64,22 +75,27 @@
     </div>
 
     <section id="capabilities" class="section" aria-labelledby="capabilities-title">
-      <h2 id="capabilities-title">研究流程中的三项工作</h2>
+      <h2 id="capabilities-title">一篇 UKHLS 论文怎样做出来</h2>
+      <p class="section-lead">从一个研究问题出发，逐步确认现有证据、可用的测量与分析条件。每个阶段保留可供下一步复用的成果。</p>
       <div class="features">
-        <article class="feature"><div class="glyph" aria-hidden="true">≡</div><h3>字段核对与清洗</h3><p>查字段定义、值标签、缺失编码和适用波次。按分析口径处理特殊值，核对人员、家庭和跨波次连接，记录清洗依据与样本流。</p></article>
-        <article class="feature"><div class="glyph" aria-hidden="true">∑</div><h3>统计分析</h3><p>按研究问题组织纳排、结局、协变量与分析时间。支持调查加权回归、Cox、混合模型及 GEE 等常用路线，输出估计值、区间和适用诊断。</p></article>
-        <article class="feature"><div class="glyph" aria-hidden="true">⊢</div><h3>可视化与结果交付</h3><p>StatsVisual-Skill 主导选图、构图和组图，MyFigures 统一版式。可生成森林图、样本流程图、诊断图和结果表，并衔接图注和手稿撰写。</p></article>
+        <article class="feature"><h3>文献检索与查新</h3><p>拟定检索式，筛选最接近的论文。对照人群、波次、测量和方法，记录检索日期、关键证据及可能的研究增量。</p></article>
+        <article class="feature"><h3>辅助选题与研究设计</h3><p>把研究兴趣收敛成可回答的问题。核对目标人群、暴露、结局、时间顺序与字段可得性，再形成分析及表图计划。</p></article>
+        <article class="feature"><h3>字段清洗与分析表构建</h3><p>核对编码、缺失和测量单位，按实际观察单位连接人员、家庭或跨波次记录。保留字段来源、纳排口径及样本流。</p></article>
+        <article class="feature"><h3>统计分析与模型诊断</h3><p>根据研究问题核对权重、重复测量和失访。可实施调查加权回归、Cox、混合模型及 GEE 等路线，保存未舍入估计与适用诊断。</p></article>
+        <article class="feature"><h3>科研图表与结果复核</h3><p>用实际估计、分母和置信区间构图，检查效应方向、参考线与图表可读性。提供森林图、样本流程图、诊断图及可编辑表格。</p></article>
+        <article class="feature"><h3>手稿写作、优化与投稿</h3><p>依据当前结果撰写方法、结果与讨论。精炼重复辩解与限定语，保留证据边界，整理投稿信、补充材料和审稿回复。</p></article>
       </div>
+      <p class="auto-route">描述当前任务后，ukhls-skill 识别研究阶段，优先调用相应的内置工作流程。新课题从选题与设计进入，已有项目承接已确认的计划、有效结果和当前稿。</p>
     </section>
 
     <section id="start" class="section" aria-labelledby="start-title">
       <h2 id="start-title">快速开始</h2>
-      <p class="section-lead">准备技能、运行环境和研究计划。你可以从单项字段查询开始，再逐步进入分析与出图。</p>
+      <p class="section-lead">准备技能和运行环境。给出一项研究兴趣、已有方案或需要完成的成果即可开始。</p>
       <div class="start-grid">
         <ol class="steps">
           <li class="step"><div><h3>安装技能</h3><p>取得 <code>ukhls-skill</code> 技能文件夹后，将它安装到支持 Skills 的宿主，再打开新会话。</p></div></li>
           <li class="step"><div><h3>准备并核查环境</h3><p>在技能目录运行对应系统的安装入口。安装器会检查 Python、R 和所需依赖。环境准备通过后运行 <code>doctor</code> 核查常规入口。</p></div></li>
-          <li class="step"><div><h3>描述一项具体任务</h3><p>在宿主调用 <code>$ukhls-skill</code>，说明研究问题、波次、已有计划与所需成果。技能按任务载入清洗、统计、绘图或写作流程。</p></div></li>
+          <li class="step"><div><h3>创建或接续课题</h3><p>在会话调用 <code>$ukhls-skill</code>，给出项目位置、当前问题和所需成果。新课题按阶段搭建工作区，已有课题从当前材料接续。</p></div></li>
         </ol>
         <div class="terminal">
           <h3>在技能目录运行</h3>
@@ -94,21 +110,53 @@ bash ./ukhls.sh doctor</code></pre></div>
       </div>
     </section>
 
+    <section id="project" class="section" aria-labelledby="project-title">
+      <h2 id="project-title">新项目怎样组织</h2>
+      <p class="section-lead">项目按研究阶段建立目录，保留审阅过的方案、执行代码、图表来源和当前稿。长任务按实际阶段记录进度，后续可以从有效结果接着做。</p>
+      <ul class="project-stages" aria-label="新项目目录示例">
+        <li><code>00_参考资料</code></li><li><code>01_研究规划</code></li><li><code>02_数据整理</code></li><li><code>03_统计分析</code></li>
+        <li><code>04_图表工作区</code></li><li><code>05_手稿写作</code></li><li><code>06_投稿文件</code></li><li><code>tmp</code> 临时工作</li>
+      </ul>
+      <article class="case" aria-labelledby="case-title">
+        <h3 id="case-title">示例课题 · 体力活动变化与后续心理健康</h3>
+        <div class="case-flow">
+          <p><strong>先查新并验证可行性</strong>查最相近的纵向研究，确认体力活动与心理健康的测量波次，以及暴露先于结局的观察窗口。</p>
+          <p><strong>把方案落实到分析</strong>核对重复测量、纳排、变量编码、权重及缺失处理。整理面板并依预定方案拟合，保存样本流和模型诊断。</p>
+          <p><strong>让结果进入论文</strong>用未舍入结果制作效应图及表格。写清测量、时间、分析口径和适用范围，按期刊要求整理稿件。</p>
+        </div>
+      </article>
+    </section>
+
     <section id="example" class="section" aria-labelledby="example-title">
-      <h2 id="example-title">给技能的第一条指令</h2>
-      <p class="section-lead">选择当前阶段，将示例复制到宿主并替换为自己的研究问题。</p>
+      <h2 id="example-title">按当前任务开始</h2>
+      <p class="section-lead">复制一条指令，替换为你的研究题目、项目位置和需要的成果。</p>
       <div class="prompt">
         <div class="choice-list" role="group" aria-label="任务示例">
-          <button type="button" aria-pressed="true" aria-controls="prompt-text" data-sample="clean">查字段与清洗</button>
+          <button type="button" aria-pressed="true" aria-controls="prompt-text" data-sample="full">从零做课题</button>
+          <button type="button" aria-pressed="false" aria-controls="prompt-text" data-sample="topic">查新与选题</button>
+          <button type="button" aria-pressed="false" aria-controls="prompt-text" data-sample="clean">查字段与清洗</button>
           <button type="button" aria-pressed="false" aria-controls="prompt-text" data-sample="model">拟合模型</button>
           <button type="button" aria-pressed="false" aria-controls="prompt-text" data-sample="plot">生成图表</button>
+          <button type="button" aria-pressed="false" aria-controls="prompt-text" data-sample="revise">写作与修订</button>
         </div>
         <div class="prompt-body" id="prompt-text" aria-live="polite">
-          <div class="prompt-example" data-example="clean"><h3>查字段与清洗</h3><pre>使用 $ukhls-skill，先核对我研究中暴露、结局和协变量的定义、可用波次及缺失编码。按现有纳排计划整理分析表，并记录各阶段人数和清洗规则。</pre></div>
+          <div class="prompt-example" data-example="full"><h3>从零做课题</h3><pre>使用 $ukhls-skill，围绕我的研究问题开展从选题到投稿准备的全流程。先查新、核实字段与波次并建立项目，再按确认的方案清洗、分析、出图和写稿。</pre></div>
+          <div class="prompt-example" data-example="topic" hidden><h3>查新与选题</h3><pre>使用 $ukhls-skill，检索与我的研究兴趣最接近的 UKHLS 论文。比较人群、波次、变量定义和分析方法，给出有文献依据且字段可行的选题。</pre></div>
+          <div class="prompt-example" data-example="clean" hidden><h3>查字段与清洗</h3><pre>使用 $ukhls-skill，先核对暴露、结局和协变量的定义、可用波次及缺失编码。按现有纳排计划整理分析表，并记录各阶段人数和清洗规则。</pre></div>
           <div class="prompt-example" data-example="model" hidden><h3>拟合模型</h3><pre>使用 $ukhls-skill，按我已确认的方案核对样本、时间定义和权重。拟合指定模型，输出未舍入的估计值、95% 置信区间、入模人数及适用的模型诊断。</pre></div>
-          <div class="prompt-example" data-example="plot" hidden><h3>生成图表</h3><pre>使用 $ukhls-skill，把当前模型结果做成森林图。核对效应尺度、参考线、置信区间和图例。用 StatsVisual-Skill 构图并应用 MyFigures 样式，输出 PDF、可复现的绘图脚本和图注。</pre></div>
+          <div class="prompt-example" data-example="plot" hidden><h3>生成图表</h3><pre>使用 $ukhls-skill，把当前模型结果做成森林图。核对效应尺度、参考线及区间，统一投稿样式，输出 PDF、可复现绘图脚本和图注。</pre></div>
+          <div class="prompt-example" data-example="revise" hidden><h3>写作与修订</h3><pre>使用 $ukhls-skill，根据当前表图与已核实的文献优化手稿。减少重复的防御性表述，保留必要限定和修改依据，并核对正文与图表。</pre></div>
         </div>
         <div class="prompt-footer"><span id="copy-status" role="status">在宿主会话中粘贴指令</span><button class="copy" id="copy-prompt" type="button">复制指令</button></div>
+      </div>
+    </section>
+
+    <section id="deliver" class="section" aria-labelledby="deliver-title">
+      <h2 id="deliver-title">论文交付包含什么</h2>
+      <div class="outcomes">
+        <article><p><strong>研究依据</strong>检索及查新记录、选题依据、研究方案、字段字典和明确的纳排口径。</p></article>
+        <article><p><strong>可复现分析</strong>清洗与模型脚本、样本流、未舍入结果、诊断、图表及图注。</p></article>
+        <article><p><strong>稿件与投稿文件</strong>当前稿、图表和引用核对，按需整理投稿信、亮点、补充材料及修订说明。</p></article>
       </div>
     </section>
 
@@ -125,7 +173,7 @@ bash ./ukhls.sh doctor</code></pre></div>
     </section>
     <p class="print-web">网页版 <a href="https://xgzryg.github.io/ukhls-skill-intro/">xgzryg.github.io/ukhls-skill-intro/</a></p>
   </main>
-  <footer><div class="wrap"><span>ukhls-skill 入门指南</span><a class="text-link" href="https://github.com/xgzryg/ukhls-skill-intro">GitHub 项目页 ↗</a></div></footer>
+  <footer><div class="wrap"><span>ukhls-skill 论文实作指南</span><a class="text-link" href="https://github.com/xgzryg/ukhls-skill-intro">GitHub 项目页 ↗</a></div></footer>
   <script>
     const status = document.getElementById('copy-status');
     const choices = [...document.querySelectorAll('[data-sample]')];
